@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+<<<<<<< HEAD
 use \App\User;
+=======
+use App\User;
+>>>>>>> 544099f768612db7b074cd6f5dea44ec5e8dcf41
 
 class UserController extends Controller
 {
@@ -43,6 +47,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+<<<<<<< HEAD
         $new_user = new \App\User;
         $new_user->name = $request->get('name');
         $new_user->username = $request->get('username');
@@ -61,6 +66,24 @@ class UserController extends Controller
         $new_user->save();
 
         return redirect()->route('users.create')->with('status', 'User successfully created.');
+=======
+       $new_user = new User;
+       $new_user->name = $request->get('name');
+       $new_user->username = $request->get('username');
+       $new_user->roles = json_encode($request->get('roles'));
+       $new_user->address = $request->get('address');
+       $new_user->phone = $request->get('phone');
+       $new_user->email = $request->get('email');
+       $new_user->password = \Hash::make($request->get('password'));
+
+       if ($request->file('avatar')) {
+           $file = $request->file('avatar')->store('avatars', 'public');
+           $new_user->avatar = $file;
+       }
+
+       $new_user->save();
+       return redirect()->route('users.create')->with('status', 'User successfully created');
+>>>>>>> 544099f768612db7b074cd6f5dea44ec5e8dcf41
     }
 
     /**
