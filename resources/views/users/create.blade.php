@@ -12,19 +12,11 @@
 
 <div class="col-md-8">
 
-<<<<<<< HEAD
-    @if (session('status'))
-        <div class="alert alert-success">
-          {{ session('status') }}
-        </div>
-    @endif
-=======
   @if (session('status'))
     <div class="alert alert-success">
       {{ session('status') }}
     </div>
   @endif
->>>>>>> 544099f768612db7b074cd6f5dea44ec5e8dcf41
 
     <form 
         enctype="multipart/form-data" 

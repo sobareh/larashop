@@ -16,7 +16,7 @@
             <label for="active">Active</label>
             <input {{Request::get('status') == 'INACTIVE' ? 'checked' : ''}} value="INACTIVE" name="status" type="radio" class="form-control" id="inactive">
             <label for="inactive">Inactive</label>
-            <button type="submit" value="Filter" class="btn btn-primary btn-sm">Filter</button>    
+            <input type="submit" value="Filter" class="btn btn-primary btn-sm">    
         </form>    
         </div>
         <div class="col-md-5 pl-3 mb-3 text-right">
@@ -29,7 +29,7 @@
         
            
     <div class="col-md-12">
-    <table class="table table-bordered table-striped table-hover">
+    <table class="table table-bordered table-striped">
         <thead class="thead-light text-center">
             <tr>
                 <th><b>Name</b></th>
@@ -75,6 +75,13 @@
             </tr>
           @endforeach
         </tbody>
+        <tfoot>
+            <tr>
+                <td colspan=10>
+                    {{$users->appends(Request::all())->links()}}
+                </td>
+            </tr>
+        </tfoot>
     </table>
 </div>
 
