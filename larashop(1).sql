@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 20, 2019 at 01:09 PM
+-- Generation Time: Nov 21, 2019 at 11:48 AM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.11
 
@@ -21,6 +21,25 @@ SET time_zone = "+00:00";
 --
 -- Database: `larashop`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `categories`
+--
+
+CREATE TABLE `categories` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'berisi nama file image saja tanpa path',
+  `created_by` int(11) NOT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `deleted_by` int(11) DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -57,7 +76,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1, '2014_10_12_000000_create_users_table', 1),
 (2, '2014_10_12_100000_create_password_resets_table', 1),
 (3, '2019_08_19_000000_create_failed_jobs_table', 1),
-(4, '2019_11_18_045121_penyesuaian_table_users', 2);
+(4, '2019_11_18_045121_penyesuaian_table_users', 2),
+(5, '2019_11_21_120550_create_table_categories', 3);
 
 -- --------------------------------------------------------
 
@@ -103,11 +123,19 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 (2, 'Yashinta Widyastuti', 'yashintawidy@gmail.com', NULL, '$2y$10$0HtvZvQaPjBushFAY23ooO548F01nxab.4Ay7K3Z6kDuivBvvikqK', NULL, '2019-11-19 22:17:50', '2019-11-20 07:40:24', 'yashintawidy', '[\"STAFF\",\"CUSTOMER\"]', 'Jalan Masjid Al-Hikmah Bogor, Semplak, Bogor Barat, Indonesia', '085718098097', 'avatars/zCEHYxczpfjx6aouSB7eHD7jDbxkmOHJGwswSSO8.jpeg', 'ACTIVE'),
 (4, 'Staff Accounting', 'accounting@larashop.test', NULL, '$2y$10$oimQsL/EIWjKpDwSVviNfuPCm.GQkkuTj1PIiSzNf5IAQtk7D6QAu', NULL, '2019-11-20 08:31:57', '2019-11-20 08:37:21', 'accounting101', '[\"STAFF\"]', 'Medan', '082170755588', 'avatars/WCVhCnHlQG9NowVXvrakWH8B6zqxkLrSx0K4DjDq.jpeg', 'ACTIVE'),
 (5, 'Renzi Abaray', 'abaray@laravel.test', NULL, '$2y$10$0bfPHz9HRoGt1XmrTr0LZetk0aVEdqhJ55n0bAmJiSg7lFhOLuqfu', NULL, '2019-11-20 10:05:25', '2019-11-20 10:40:35', 'abaray', '[\"STAFF\"]', 'Sidikalang', '08111234111', NULL, 'INACTIVE'),
-(6, 'Andi Pribadi', 'pribadi@larashop.test', NULL, '$2y$10$/1p3.sJICMXmbyrqFH7Z1eoAwH4HIGt397fdWWoR8clvXwAMmaIGu', NULL, '2019-11-20 10:06:16', '2019-11-20 10:40:45', 'pribadi', '[\"STAFF\"]', 'Rantau Prapat', '081222224444', NULL, 'INACTIVE');
+(6, 'Andi Pribadi', 'pribadi@larashop.test', NULL, '$2y$10$/1p3.sJICMXmbyrqFH7Z1eoAwH4HIGt397fdWWoR8clvXwAMmaIGu', NULL, '2019-11-20 10:06:16', '2019-11-20 10:40:45', 'pribadi', '[\"STAFF\"]', 'Rantau Prapat', '081222224444', NULL, 'INACTIVE'),
+(7, 'James Bikson', 'jbikson@laravel.test', NULL, '$2y$10$bFTs5niDllKdYfvTjwAZ6.kiO3/7SM2zK579iajlu4U7uHAcnQHx2', NULL, '2019-11-21 03:57:22', '2019-11-21 03:57:22', 'jamesbikson', '[\"CUSTOMER\"]', 'Jakarta', '081111111111', NULL, 'ACTIVE');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `categories`
+--
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `categories_slug_unique` (`slug`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -140,6 +168,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `categories`
+--
+ALTER TABLE `categories`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -149,13 +183,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
