@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use \App\Category;
+use \App\User;
 
 class CategoryController extends Controller
 {
@@ -14,7 +15,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::paginate(5);
+
+        return view('categories.index', ['categories' => $categories]);
     }
 
     /**
@@ -24,6 +27,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        // dd(\Auth::user()->name);
         return view('categories.create');
     }
 
@@ -45,6 +49,14 @@ class CategoryController extends Controller
 
             $new_category->image = $image_path;
         }
+
+        $new_category->created_by = \Auth::user()->id;
+
+        $new_category->slug = \Str::slug($name, '-');
+
+        $new_category->save();
+
+        return redirect()->route('categories.create')->with('status', 'Category successfully created');
     }
 
     /**
