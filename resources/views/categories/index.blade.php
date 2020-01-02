@@ -41,7 +41,7 @@
       </div>
       
     <div class="col-md-3 text-right">
-        <a href="{{route('categories.create')}}" class="btn btn-primary">Create category</a>
+        <a href="{{route('categories.create')}}" class="btn btn-primary btn-sm">Create category</a>
     </div>
  
      <hr class="my-4">

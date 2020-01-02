@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 31, 2019 at 06:27 AM
+-- Generation Time: Jan 02, 2020 at 11:30 AM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.11
 
@@ -21,6 +21,60 @@ SET time_zone = "+00:00";
 --
 -- Database: `larashop`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `books`
+--
+
+CREATE TABLE `books` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `author` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `publisher` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cover` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `price` double(8,2) NOT NULL,
+  `views` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `stock` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `status` enum('PUBLISH','DRAFT') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `deleted_by` int(11) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `books`
+--
+
+INSERT INTO `books` (`id`, `title`, `slug`, `description`, `author`, `publisher`, `cover`, `price`, `views`, `stock`, `status`, `created_by`, `updated_by`, `deleted_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Dasar Pemrograman Python 3 + Cd', 'dasar-pemrograman-python-3-cd', 'Buku yang sangat perlu dimiliki dan dibaca oleh siapa saja yang berminat mempelajari pemrograman Python. Dengan menggunakan pendekatan sederhana dan disertai banyak contoh, buku ini membuat pemrograman Python akan menjadi mudah dipelajari dan dikuasai oleh siapa saja. \r\nMateri-materi berikut dibahas di buku ini: Cara menginstalasi interpreter Python Penggunaan Python secara interaktif dan melalui skrip Pembuatan fungsi Struktur data berupa Iist, dictionary, tuple, dan set • Penanganan eksepsi • Pengenalan sejumlah pustaka seperti sys, os, math, time, dan pickle • Pembuatan kelas dan objek Penanganan file • Graphical User Interface (GUI) dengan tkinter', 'Abdul Kadir', 'Penerbit Andi', 'books-cover/MW4rS5MvgHKQnToAJ2yDfFher1JviFZvlqBZrGf1.jpeg', 149000.00, 0, 1, 'PUBLISH', 1, NULL, NULL, '2020-01-02 10:13:55', '2020-01-02 10:13:55', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `book_category`
+--
+
+CREATE TABLE `book_category` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `book_id` int(10) UNSIGNED DEFAULT NULL,
+  `category_id` int(10) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `book_category`
+--
+
+INSERT INTO `book_category` (`id`, `book_id`, `category_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 8, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -51,7 +105,8 @@ INSERT INTO `categories` (`id`, `name`, `slug`, `image`, `created_by`, `updated_
 (3, 'Sepatu Sniker', 'sepatu-sniker', 'category_images/nw5CN6qYL0mA8jf8MFHPhUW0ZePMxVBCx8hOUrj2.jpeg', 1, NULL, NULL, NULL, '2019-12-31 01:19:43', '2019-12-31 05:13:56'),
 (4, 'Baju Berlari', 'baju-berlari', 'category_images/ILknYvz8D57mZjBuhkbaMytL6Yf9tVTVbUswO8M0.jpeg', 1, 1, NULL, NULL, '2019-12-31 02:07:49', '2019-12-31 05:15:11'),
 (6, 'Celana Tidur', 'celana-tidur', 'category_images/2cNWOZyCzgV25sOMwpThciLROdxd7C0HaY2v7YjQ.jpeg', 1, 1, NULL, NULL, '2019-12-31 02:08:46', '2019-12-31 05:15:54'),
-(7, 'Sepatu Lari', 'sepatu-lari', NULL, 1, NULL, NULL, NULL, '2019-12-31 04:08:30', '2019-12-31 05:15:26');
+(7, 'Sepatu Lari', 'sepatu-lari', NULL, 1, NULL, NULL, NULL, '2019-12-31 04:08:30', '2019-12-31 05:15:26'),
+(8, 'Buku Pemrograman', 'buku-pemrograman', 'category_images/jsIjPHyLg86OEdN9lIEOt3Ohsf6xy787xvgmmw2v.jpeg', 1, NULL, NULL, NULL, '2020-01-02 10:12:13', '2020-01-02 10:12:13');
 
 -- --------------------------------------------------------
 
@@ -89,7 +144,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (2, '2014_10_12_100000_create_password_resets_table', 1),
 (3, '2019_08_19_000000_create_failed_jobs_table', 1),
 (4, '2019_11_18_045121_penyesuaian_table_users', 2),
-(5, '2019_11_21_120550_create_table_categories', 3);
+(5, '2019_11_21_120550_create_table_categories', 3),
+(6, '2020_01_02_144443_create_books_table', 4),
+(7, '2020_01_02_150610_create_book_category_table', 5);
 
 -- --------------------------------------------------------
 
@@ -143,6 +200,20 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 --
 
 --
+-- Indexes for table `books`
+--
+ALTER TABLE `books`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `book_category`
+--
+ALTER TABLE `book_category`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `book_category_book_id_foreign` (`book_id`),
+  ADD KEY `book_category_category_id_foreign` (`category_id`);
+
+--
 -- Indexes for table `categories`
 --
 ALTER TABLE `categories`
@@ -180,10 +251,22 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `books`
+--
+ALTER TABLE `books`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `book_category`
+--
+ALTER TABLE `book_category`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -195,13 +278,24 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `book_category`
+--
+ALTER TABLE `book_category`
+  ADD CONSTRAINT `book_category_book_id_foreign` FOREIGN KEY (`book_id`) REFERENCES `books` (`id`),
+  ADD CONSTRAINT `book_category_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
