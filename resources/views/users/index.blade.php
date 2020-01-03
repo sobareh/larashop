@@ -6,27 +6,26 @@
 
 @section('content')
 
-        
-        <div class="col-md-4 pl-3 mb-3 mx-right">
-        <form action="{{route('users.index')}}">
-            <input value="{{Request::get('keyword')}}" name="keyword" class="form-control" type="text" placeholder="Masukan email untuk filter..."/>
+        <div class="row">
+            <div class="col-md-4 pl-3 mb-3 mx-right">
+            <form action="{{route('users.index')}}">
+                <input value="{{Request::get('keyword')}}" name="keyword" class="form-control" type="text" placeholder="Masukan email untuk filter..."/>
+            </div>
+            <div class="col-md-3 pl-3 mb-3 justify-text-left">
+                <input {{Request::get('status') == 'ACTIVE' ? 'checked' : ''}} value="ACTIVE" name="status" type="radio" class="form-control" id="active">
+                <label for="active">Active</label>
+                <input {{Request::get('status') == 'INACTIVE' ? 'checked' : ''}} value="INACTIVE" name="status" type="radio" class="form-control" id="inactive">
+                <label for="inactive">Inactive</label>
+                <input type="submit" value="Filter" class="btn btn-primary btn-sm">    
+            </form>    
+            </div>
+            <div class="col-md-5 pl-3 mb-3 text-right">
+                    <a 
+                    href="{{route('users.create')}}" 
+                    class="btn btn-success">Create user</a>
+            </div>
         </div>
-        <div class="col-md-3 pl-3 mb-3 mx-left">
-            <input {{Request::get('status') == 'ACTIVE' ? 'checked' : ''}} value="ACTIVE" name="status" type="radio" class="form-control" id="active">
-            <label for="active">Active</label>
-            <input {{Request::get('status') == 'INACTIVE' ? 'checked' : ''}} value="INACTIVE" name="status" type="radio" class="form-control" id="inactive">
-            <label for="inactive">Inactive</label>
-            <input type="submit" value="Filter" class="btn btn-primary btn-sm">    
-        </form>    
-        </div>
-        <div class="col-md-5 pl-3 mb-3 text-right">
-                <a 
-                href="{{route('users.create')}}" 
-                class="btn btn-success">Create user</a>
-        </div>
-        
-
-        
+         
            
     <div class="col-md-12">
     <table class="table table-bordered table-striped">
