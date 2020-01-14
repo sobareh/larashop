@@ -65,12 +65,12 @@ class BookController extends Controller
 
         if ($request->get('save_action') == 'PUBLISH') {
             return redirect()
-                ->route('books.create')
-                ->with('status', 'Book successfully saved and published.');
+                    ->route('books.create')
+                    ->with('status', 'Book successfully saved and published.');
         } else {
             return redirect()
-                ->router('books.create')
-                ->with('status', 'Book saved as draft.');
+                    ->router('books.create')
+                    ->with('status', 'Book saved as draft.');
         }
         
     }
@@ -149,6 +149,16 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $book = \App\Book::findOrfail($id);
+        $book->delete();
+
+        return redirect()->route('books.index')->with('status', 'Book moved to trash');
+    }
+    
+    public function trash() 
+    {
+        $books = \App\Book::onlyTrashed()->paginate(10);
+
+        return view('books.trash', ['books' => $books]);
     }
 }
